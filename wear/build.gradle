@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion project.compileSdkVersion
+    buildToolsVersion '28.0.2'
+
+    defaultConfig {
+        applicationId "com.joaquimley.avenging"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 4
+        versionName "1.0.2"
+    }
+
+    buildTypes {
+
+        debug {
+            minifyEnabled false
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+            // Enable for ui-testing: http://stackoverflow.com/questions/39195754/java-lang-noclassdeffounderror-failed-resolution-of-lorg-jacoco-agent-rt-inter
+            testCoverageEnabled true
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+}
+
+dependencies {
+    debugImplementation project(path: ':core')
+    releaseImplementation project(path: ':core')
+
+    final PLAY_SERVICES_WEARABLE_VERSION = '9.8.0'
+    final SUPPORT_WEARABLE_VERSION = '2.3.0'
+
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "com.google.android.support:wearable:$SUPPORT_WEARABLE_VERSION"
+    implementation "com.google.android.gms:play-services-wearable:$PLAY_SERVICES_WEARABLE_VERSION"
+    compileOnly 'com.google.android.wearable:wearable:2.3.0'
+    implementation 'com.google.android.support:wearable:2.3.0'
+}
